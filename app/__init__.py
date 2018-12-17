@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 
 app = Flask(__name__)
 app.config.from_object(obj=Config)
@@ -14,6 +15,7 @@ login = LoginManager(app=app)
 login.login_view = 'login'
 mail = Mail(app=app)
 bootstrap = Bootstrap(app=app)
+moment = Moment(app=app)
 
 from app import routes, models, errors
 import logging

@@ -18,3 +18,5 @@ class Config(object):
     ADMINS = [os.environ.get('MY_ADMIN_EMAIL')]
 
     POSTS_PER_PAGE = 25
+
+    LANGUAGES = ['en', 'en_US', 'es']

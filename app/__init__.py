@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from flask_babel import Babel, lazy_gettext as _l
 
 app = Flask(__name__)
 app.config.from_object(obj=Config)
@@ -13,9 +14,11 @@ db = SQLAlchemy(app=app)
 migrate = Migrate(app=app, db=db)
 login = LoginManager(app=app)
 login.login_view = 'login'
+login.login_message = _l('Please log in to access this page')
 mail = Mail(app=app)
 bootstrap = Bootstrap(app=app)
 moment = Moment(app=app)
+babel = Babel(app=app)
 
 from app import routes, models, errors
 import logging
@@ -56,3 +59,9 @@ if not app.debug:
 
     app.logger.setLevel(logging.INFO)
     app.logger.info('first_flask_project startup')
+
+
+@babel.localeselector
+def get_locale():
+    # return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return 'es'
